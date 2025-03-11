@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { addLocation, useFireLocations } from "./firebase/FirestoreController";
+import { MD3LightTheme, PaperProvider, TextInput } from "react-native-paper";
+import { useState } from "react";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+  const [location, setLocation] = useState('');
+  const locations = useFireLocations();
+
+  return(
+    <PaperProvider>
+      <SafeAreaView>
+        <TextInput
+        label={'New location'}
+        value={location}
+        onChangeText={setLocation}
+        right={
+          <TextInput.Icon
+            icon={'plus-circle'}
+            onPress={( )=> addLocation(location)}
+            size={32}
+            color={MD3LightTheme.colors.primary}
+            />
+          }
+        />
+      </SafeAreaView>
+    </PaperProvider>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
