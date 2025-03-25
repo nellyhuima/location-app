@@ -1,4 +1,5 @@
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
+import LocationItem from "./LocationItem";
 
 export function LocationList({locations}){
     return(
